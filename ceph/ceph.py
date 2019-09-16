@@ -563,6 +563,8 @@ class Ceph(object):
         if not match:
             match = re.search(r"(\d+) mons at", lines)
         all_mons = int(match.group(1))
+        logger.info(all_mons)
+        logger.info(self.ceph_demon_stat['mon'])
         if all_mons != self.ceph_demon_stat['mon']:
             logger.error("Not all monitors are in cluster")
             return 1
