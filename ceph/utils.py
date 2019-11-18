@@ -217,9 +217,9 @@ def check_ceph_healthly(ceph_mon, num_osds, num_mons, mon_container=None, build,
         log.error("Valid States are not found in the health check")
         return 1
     if build.startswith('4'):
-            match = re.search(r"(\d+)\s+osds:\s+(\d+)\s+up\s\(\w+\s\w+\),\s(\d+)\sin", lines)
-        else:
-            match = re.search(r"(\d+)\s+osds:\s+(\d+)\s+up,\s+(\d+)\s+in", lines)
+        match = re.search(r"(\d+)\s+osds:\s+(\d+)\s+up\s\(\w+\s\w+\),\s(\d+)\sin", lines)
+    else:
+        match = re.search(r"(\d+)\s+osds:\s+(\d+)\s+up,\s+(\d+)\s+in", lines)
     all_osds = int(match.group(1))
     up_osds = int(match.group(2))
     in_osds = int(match.group(3))
