@@ -177,7 +177,7 @@ def setup_repos(ceph, base_url, installer_url=None):
         inst_file.flush()
 
 
-def check_ceph_healthly(ceph_mon, num_osds, num_mons, mon_container=None, build, timeout=300):
+def check_ceph_healthly(ceph_mon, num_osds, num_mons, build, mon_container=None, timeout=300):
     """
     Function to check ceph is in healthy state
 
@@ -185,8 +185,8 @@ def check_ceph_healthly(ceph_mon, num_osds, num_mons, mon_container=None, build,
        ceph_mon: monitor node
        num_osds: number of osds in cluster
        num_mons: number of mons in cluster
-       mon_container: monitor container name if monitor is placed in the container
        build: rhcs build version
+       mon_container: monitor container name if monitor is placed in the container
        timeout: 300 seconds(default) max time to check
          if cluster is not healthy within timeout period
                 return 1

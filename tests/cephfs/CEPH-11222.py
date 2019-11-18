@@ -70,7 +70,7 @@ def run(ceph_cluster, **kw):
         else:
             raise CommandFailed("Activate multiple mdss failed")
         cluster_health_beforeIO = check_ceph_healthly(
-            client_info['mon_node'], 12, 1, None, build, 300)
+            client_info['mon_node'], 12, 1, build, None, 300)
 
         dir1 = ''.join(
             random.choice(
@@ -187,7 +187,7 @@ def run(ceph_cluster, **kw):
         result2 = fs_util.rc_verify('', return_counts)
         print(result2)
         cluster_health_afterIO = check_ceph_healthly(
-            client_info['mon_node'], 12, 1, None, build, 300)
+            client_info['mon_node'], 12, 1, build, None, 300)
         if cluster_health_beforeIO == cluster_health_afterIO:
             print("Testcase %s passed" % (tc))
             log.info('Cleaning up!-----')
