@@ -177,7 +177,7 @@ def setup_repos(ceph, base_url, installer_url=None):
         inst_file.flush()
 
 
-def check_ceph_healthly(ceph_mon, num_osds, num_mons, mon_container=None, timeout=300):
+def check_ceph_healthly(ceph_mon, num_osds, num_mons, mon_container=None, build, timeout=300):
     """
     Function to check ceph is in healthy state
 
@@ -186,6 +186,7 @@ def check_ceph_healthly(ceph_mon, num_osds, num_mons, mon_container=None, timeou
        num_osds: number of osds in cluster
        num_mons: number of mons in cluster
        mon_container: monitor container name if monitor is placed in the container
+       build: rhcs build version
        timeout: 300 seconds(default) max time to check
          if cluster is not healthy within timeout period
                 return 1
@@ -215,7 +216,10 @@ def check_ceph_healthly(ceph_mon, num_osds, num_mons, mon_container=None, timeou
     if not all(state in lines for state in valid_states):
         log.error("Valid States are not found in the health check")
         return 1
-    match = re.search(r"(\d+)\s+osds:\s+(\d+)\s+up,\s+(\d+)\s+in", lines)
+    if build.startswith('4'):
+            match = re.search(r"(\d+)\s+osds:\s+(\d+)\s+up\s\(\w+\s\w+\),\s(\d+)\sin", lines)
+        else:
+            match = re.search(r"(\d+)\s+osds:\s+(\d+)\s+up,\s+(\d+)\s+in", lines)
     all_osds = int(match.group(1))
     up_osds = int(match.group(2))
     in_osds = int(match.group(3))
