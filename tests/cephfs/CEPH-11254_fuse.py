@@ -67,7 +67,7 @@ def run(ceph_cluster, **kw):
             return 1
         cluster_health_beforeIO = check_ceph_healthly(
             client_info['mon_node'][0], num_of_osds, len(
-                client_info['mon_node']),build, None, 300)
+                client_info['mon_node']), build, None, 300)
         rc = fs_util.activate_multiple_mdss(client_info['mds_nodes'])
         if rc == 0:
             log.info("Activate multiple mdss successfully")

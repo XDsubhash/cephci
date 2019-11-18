@@ -67,8 +67,9 @@ def setup_s3_tests(client_node, rgw_node, config, build):
 
     log.info("Running bootstrap")
     if build.startswith('4'):
-        client_node.exec_command(cmd="cd s3-test")
-        client_node.exec_command(cmd="sudo yum install -y python2-virtualenv python2-devel libevent-devel libffi-devel libxml2-devel libxslt-devel zlib-devel")
+        client_node.exec_command(cmd="cd s3-tests")
+        client_node.exec_command(cmd="sudo yum install -y python2-virtualenv python2-devel libevent-devel" \
+            "libffi-devel libxml2-devel libxslt-devel zlib-devel")
         client_node.exec_command(cmd="virtualenv --no-site-packages --distribute virtualenv")
         client_node.exec_command(cmd="./virtualenv/bin/pip install setuptools==32.3.1")
         client_node.exec_command(cmd="./virtualenv/bin/pip install -r requirements.txt")
