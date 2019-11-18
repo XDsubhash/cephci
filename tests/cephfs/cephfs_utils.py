@@ -43,12 +43,12 @@ class FsUtils(object):
                 self.mon_node_ip[-1].strip('/0')
             self.mon_node_ip = self.mon_node_ip.split(' ')
             if build.startswith('4'):
-                self.mon_node_ip[0] = re.search(r"\W+v\w+:(\d+.\d+.\d+.\d+:\d+)/0,v\w+:(\d+.\d+.\d+.\d+:\d+)/0\W" \
-                    ,self.mon_node_ip[0]).group(2)
-                self.mon_node_ip[1] = re.search(r"\W+v\w+:(\d+.\d+.\d+.\d+:\d+)/0,v\w+:(\d+.\d+.\d+.\d+:\d+)/0\W" \
-                    ,self.mon_node_ip[1]).group(2)
-                self.mon_node_ip[2] = re.search(r"\W+v\w+:(\d+.\d+.\d+.\d+:\d+)/0,v\w+:(\d+.\d+.\d+.\d+:\d+)/0\W" \
-                    ,self.mon_node_ip[2]).group(2)
+                self.mon_node_ip[0] = re.search(r"\W+v\w+:(\d+.\d+.\d+.\d+:\d+)/0,v\w+:(\d+.\d+.\d+.\d+:\d+)/0\W",
+                                                self.mon_node_ip[0]).group(2)
+                self.mon_node_ip[1] = re.search(r"\W+v\w+:(\d+.\d+.\d+.\d+:\d+)/0,v\w+:(\d+.\d+.\d+.\d+:\d+)/0\W",
+                                                self.mon_node_ip[1]).group(2)
+                self.mon_node_ip[2] = re.search(r"\W+v\w+:(\d+.\d+.\d+.\d+:\d+)/0,v\w+:(\d+.\d+.\d+.\d+:\d+)/0\W",
+                                                self.mon_node_ip[2]).group(2)
             break
         for client in self.clients:
             node = client.node
