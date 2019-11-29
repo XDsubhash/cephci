@@ -52,7 +52,7 @@ def run(ceph_cluster, **kw):
             crush-failure-domain=osd".format(profile=profile, k=k, m=m)
     else:
         prof_cmd = "osd erasure-code-profile set {profile} k={k} m={m} \
-            ruleset-failure-domain=osd crush-failure-domain=osd".format(profile=profile, =k, m=m)
+            ruleset-failure-domain=osd crush-failure-domain=osd".format(profile=profile, k=k, m=m)
     try:
         (out, err) = helper.raw_cluster_cmd(prof_cmd)
         outbuf = out.read().decode()
