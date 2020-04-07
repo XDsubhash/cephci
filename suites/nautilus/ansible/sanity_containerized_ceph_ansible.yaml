@@ -98,7 +98,6 @@ tests:
       polarion-id: CEPH-9581
       module: test_ansible_roll_over.py
       config:
-          is_mixed_lvm_configs: True
           ansi_config:
             ceph_test: True
             ceph_origin: distro
@@ -144,7 +143,6 @@ tests:
       polarion-id: CEPH-9583
       module: test_ansible_roll_over.py
       config:
-          is_mixed_lvm_configs: True
           ansi_config:
             ceph_test: True
             ceph_origin: distro
@@ -190,7 +188,6 @@ tests:
       polarion-id: CEPH-9582
       module: test_ansible_roll_over.py
       config:
-          is_mixed_lvm_configs: True
           ansi_config:
             ceph_test: True
             ceph_origin: distro
