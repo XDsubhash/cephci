@@ -2,7 +2,7 @@ import getpass
 import logging
 import os
 import subprocess
-import shlex
+# import shlex
 import random
 import smtplib
 import time
@@ -568,8 +568,8 @@ def email_results(results_list, run_id, send_to_cephci=False):
         log_link = "http://magna002.ceph.redhat.com/cephci-jenkins/{run}/".format(run=run_name)
 
         msg = MIMEMultipart('alternative')
-        msg['Subject'] = "Cephci {compose} {suite} {run}".format(run=run_name, compose=results_list[0]['compose-id'],
-                                                                 suite=results_list[0]['suite-name'])
+        msg['Subject'] = "{compose} {suite} {run}".format(run=run_name, compose=results_list[0]['compose-id'],
+                                                          suite=results_list[0]['suite-name'])
         msg['From'] = sender
         msg['To'] = ", ".join(recipients)
 
@@ -589,9 +589,9 @@ def email_results(results_list, run_id, send_to_cephci=False):
         part1 = MIMEText(html, 'html')
         msg.attach(part1)
         emailmsg = html
-        shell_cmd = ('echo emailmsg="{}">>emailbody.props'.format(emailmsg))
-        subprocess_cmd = shlex.split(shell_cmd)
-        subprocess.call(subprocess_cmd)
+        shell_cmd = ('echo emailmsg="{}" >> emailbody.props'.format(emailmsg))
+        # subprocess_cmd = shlex.split(shell_cmd)
+        subprocess.call(shell_cmd)
 
         try:
             s = smtplib.SMTP('localhost')
