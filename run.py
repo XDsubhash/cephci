@@ -586,7 +586,10 @@ def run(args):
     url_base = "http://magna002.ceph.redhat.com/cephci-jenkins"
     run_dir_name = run_dir.split('/')[-1]
     print("\nAll test logs located here: {base}/{dir}".format(base=url_base, dir=run_dir_name))
+    log.info("\nAll test logs located here: {base}/{dir}".format(base=url_base, dir=run_dir_name))
+    log.info(tcs)
     print_results(tcs)
+    configure_logger("Final Summary log", run_dir)
     send_to_cephci = post_results or post_to_report_portal
     email_results(tcs, run_id, send_to_cephci)
     return jenkins_rc
