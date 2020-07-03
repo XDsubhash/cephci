@@ -536,7 +536,7 @@ def run(args):
                     service.log(time=timestamp(), message="Polarion ID: {}".format(tc['polarion-id']), level="INFO")
                 rc = test_mod.run(ceph_cluster=ceph_cluster_dict[cluster_name],
                                   ceph_nodes=ceph_cluster_dict[cluster_name], config=config, test_data=ceph_test_data,
-                                  ceph_cluster_dict=ceph_cluster_dict, clients=clients)
+                                  ceph_cluster_dict=ceph_cluster_dict, clients=None)
             except BaseException:
                 if post_to_report_portal:
                     service.log(time=timestamp(), message=traceback.format_exc(), level="ERROR")
