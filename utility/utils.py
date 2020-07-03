@@ -597,7 +597,7 @@ def email_results(results_list, run_id, send_to_cephci=False):
         os.environ['emsg'] = emailmsg
         scmd = "export emsg=${emsg}"
         subprocess.call(scmd, shell=True)
-        subprocess.call("echo emsg=`echo ${emsg}`> cvpumb.props")
+        subprocess.call("echo emsg=`echo ${emsg}`> /tmp/cvpumb.props", shell=True)
 
         try:
             s = smtplib.SMTP('localhost')
