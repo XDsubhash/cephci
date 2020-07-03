@@ -583,8 +583,19 @@ def email_results(results_list, run_id, send_to_cephci=False):
                                log_link=log_link,
                                test_results=results_list)
 
+        # part1 = MIMEText(html, 'html')
+        # msg.attach(part1)
+        emailmsg = html
         part1 = MIMEText(html, 'html')
         msg.attach(part1)
+        # shell_cmd = "echo '{}' > emsg".format(emailmsg)
+        # subprocess_cmd = shlex.split(shell_cmd)
+        # tes = msg.as_string()
+        # subprocess.call(shell_cmd)
+        # subprocess.call("export emailmsg=`cat emsg`")
+        os.environ['emsg'] = emailmsg
+        scmd = "echo ${emsg}"
+        subprocess.call(scmd, shell=True)
 
         try:
             s = smtplib.SMTP('localhost')
