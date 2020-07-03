@@ -3,6 +3,7 @@ import itertools
 import logging
 import time
 import traceback
+import sys
 
 from ceph.parallel import parallel
 from ceph.utils import config_ntp
@@ -22,6 +23,7 @@ def run(**kw):
     # skip subscription manager if testing beta RHEL
     config = kw.get('config')
     skip_subscription = config.get('skip_subscription', False)
+    sys.exit(1)
     repo = config.get('add-repo', False)
     rhbuild = config.get('rhbuild')
 
