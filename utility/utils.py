@@ -595,9 +595,12 @@ def email_results(results_list, run_id, send_to_cephci=False):
         # subprocess.call(shell_cmd)
         # subprocess.call("export emailmsg=`cat emsg`")
         os.environ['emsg'] = emailmsg
-        scmd = "export emsg=${emsg}"
-        subprocess.call(scmd, shell=True)
-        subprocess.call("echo emsg=`echo ${emsg}`> /tmp/cvpumb.props", shell=True)
+        # scmd = "export emsg=${emsg}"
+        # subprocess.call(scmd, shell=True)
+        # subprocess.call("echo emsg=`echo ${emsg}`> cvpumb.props")
+        text_file = open("sample.html", "wt")
+        text_file.write(html)
+        text_file.close()
 
         try:
             s = smtplib.SMTP('localhost')
