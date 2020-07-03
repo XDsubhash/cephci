@@ -595,7 +595,7 @@ def email_results(results_list, run_id, send_to_cephci=False):
         # subprocess.call(shell_cmd)
         # subprocess.call("export emailmsg=`cat emsg`")
         os.environ['emsg'] = emailmsg
-        scmd = "echo ${emsg}"
+        scmd = "export emsg=${emsg}"
         subprocess.call(scmd, shell=True)
 
         try:
