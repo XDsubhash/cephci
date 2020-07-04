@@ -594,7 +594,7 @@ def email_results(results_list, run_id, send_to_cephci=False):
         # tes = msg.as_string()
         # subprocess.call(shell_cmd)
         # subprocess.call("export emailmsg=`cat emsg`")
-        os.environ['emsg'] = emailmsg
+        os.environ['DEFAULT_CONTENT'] = emailmsg
         # scmd = "export emsg=${emsg}"
         # subprocess.call(scmd, shell=True)
         # subprocess.call("echo emsg=`echo ${emsg}`> cvpumb.props")
