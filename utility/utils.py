@@ -604,7 +604,7 @@ def email_results(results_list, run_id, send_to_cephci=False):
         subprocess.call("export ac=$DEFAULT_CONTENT", shell=True)
         subprocess.call("echo $DEFAULT_CONTENT", shell=True)
         subprocess.call("touch email.props", shell=True)
-        subprocess.call("echo ab="$DEFAULT_CONTENT" > email.props", shell=True)
+        subprocess.call("echo ab=`echo $DEFAULT_CONTENT`> email.props", shell=True)
 
         try:
             s = smtplib.SMTP('localhost')
