@@ -601,6 +601,9 @@ def email_results(results_list, run_id, send_to_cephci=False):
         text_file = open("sample.html", "wt")
         text_file.write(html)
         text_file.close()
+        subprocess.call("export ac=$DEFAULT_CONTENT", shell=True)
+        subprocess.call("echo $DEFAULT_CONTENT", shell=True)
+        subprocess.call("ab=$DEFAULT_CONTENT", shell=True)
 
         try:
             s = smtplib.SMTP('localhost')
