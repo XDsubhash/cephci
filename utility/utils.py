@@ -567,7 +567,11 @@ def email_results(results_list, run_id, send_to_cephci=False):
         log_link = "http://magna002.ceph.redhat.com/cephci-jenkins/{run}/".format(run=run_name)
 
         msg = MIMEMultipart('alternative')
-        msg['Subject'] = "cephci results for {run}".format(run=run_name)
+        run_status = get_run_status(results_list)
+        msg['Subject'] = "[{run_status}] {compose} {suite} {run}".format(run=run_name,
+                                                                         compose=results_list[0]['compose-id'],
+                                                                         suite=results_list[0]['suite-name'],
+                                                                         run_status=run_status)
         msg['From'] = sender
         msg['To'] = ", ".join(recipients)
 
@@ -628,3 +632,13 @@ def get_cephci_config():
                   "See README for more information.")
         raise
     return cfg
+
+
+def get_run_status(results_list):
+    """
+    Returns overall run status either Pass or Fail.
+    """
+    for tc in results_list:
+        if tc['status'] == 'Failed':
+            return "FAILED"
+    return "PASSED"
