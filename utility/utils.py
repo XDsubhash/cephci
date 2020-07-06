@@ -589,22 +589,15 @@ def email_results(results_list, run_id, send_to_cephci=False):
         emailmsg = html
         part1 = MIMEText(html, 'html')
         msg.attach(part1)
-        # shell_cmd = "echo '{}' > emsg".format(emailmsg)
-        # subprocess_cmd = shlex.split(shell_cmd)
-        # tes = msg.as_string()
-        # subprocess.call(shell_cmd)
-        # subprocess.call("export emailmsg=`cat emsg`")
-        os.environ['DEFAULT_CONTENT'] = emailmsg
-        # scmd = "export emsg=${emsg}"
-        # subprocess.call(scmd, shell=True)
-        # subprocess.call("echo emsg=`echo ${emsg}`> cvpumb.props")
-        text_file = open("sample.html", "wt")
+        text_file = open("result.html", "wt")
         text_file.write(html)
         text_file.close()
-        subprocess.call("export ac=$DEFAULT_CONTENT", shell=True)
-        subprocess.call("echo $DEFAULT_CONTENT", shell=True)
-        subprocess.call("touch email.props", shell=True)
-        subprocess.call("echo ab=`echo ${DEFAULT_CONTENT}`> email.props", shell=True)
+        result_env_var = "run_status={}".format(run_status)
+        # for JJB's to parse
+        text_file = open("result.props", "wt")
+        text_file.write(result_env_var)
+        text_file.close()
+        
 
         try:
             s = smtplib.SMTP('localhost')
