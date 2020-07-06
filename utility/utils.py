@@ -603,7 +603,7 @@ def email_results(results_list, run_id, send_to_cephci=False):
         text_file.close()
         subprocess.call(["export", "run_status=", "{}".format(run_status)])
         subprocess.call('echo run_status="{}" >> result.props'.format(run_status))
-        subprocess.call("echo result_status='`cat results.html`' >> result.props".format(run_status))
+        subprocess.call("echo result_status='`cat results.html`' >> result.props")
         
 
         try:
