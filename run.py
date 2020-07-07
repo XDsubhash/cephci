@@ -588,7 +588,7 @@ def run(args):
     print("\nAll test logs located here: {base}/{dir}".format(base=url_base, dir=run_dir_name))
     print_results(tcs)
     send_to_cephci = post_results or post_to_report_portal
-    email_results(tcs, run_id, send_to_cephci)
+    email_results(tcs, run_id, run_dir_name, send_to_cephci)
     return jenkins_rc
 
 
