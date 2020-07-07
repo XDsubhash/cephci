@@ -560,9 +560,9 @@ def email_results(results_list, run_id, run_dir, send_to_cephci=False):
                     "Or please specify in this format eg., address: email1, email2.......emailn"
                     "Please configure if you would like to receive run result emails.")
 
-    if send_to_cephci:
-        recipients.append(sender)
-        recipients = list(set(recipients))
+#     if send_to_cephci:
+#         recipients.append(sender)
+#         recipients = list(set(recipients))
 
     if recipients:
         run_name = "cephci-run-{id}".format(id=run_id)
