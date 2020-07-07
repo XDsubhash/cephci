@@ -596,15 +596,16 @@ def email_results(results_list, run_id, send_to_cephci=False):
         text_file = open("result.html", "wt")
         text_file.write(html)
         text_file.close()
+        os.putenv(result_status, emailmsg)
 #         result_env_var = 'run_status="{}"'.format(run_status)
         # for JJB's to parse
 #         text_file = open("result.props", "wt")
 #         text_file.write(emailmsg)
 #         text_file.close()
-        subprocess.call("export run_status={}".format(run_status), shell=True)
-        subprocess.call("export result_status=`cat result.html`", shell=True)
+#         subprocess.call("export run_status={}".format(run_status), shell=True)
+#         subprocess.call("export result_status=`cat result.html`", shell=True)
         subprocess.call('echo run_status="{}" > result.props'.format(run_status), shell=True)
-        subprocess.call("echo result_status='{}' >> result.props".format(emailmsg), shell=True)
+#         subprocess.call("echo result_status='{}' >> result.props".format(emailmsg), shell=True)
         
 
         try:
