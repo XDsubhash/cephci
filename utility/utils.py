@@ -535,14 +535,14 @@ def custom_ceph_config(suite_config, custom_config, custom_config_file):
     return full_custom_config
 
 
-def email_results(results_list, run_id, run_dir_name, send_to_cephci=False):
+def email_results(results_list, run_id, run_dir, send_to_cephci=False):
     """
     Email results of test run to QE
 
     Args:
         results_list (list): test case results info
         run_id (str): id of the test run
-        run_dir_name: log directory path
+        run_dir: log directory path
         send_to_cephci (bool): send to cephci@redhat.com as well as user email
 
     Returns: None
@@ -598,7 +598,7 @@ def email_results(results_list, run_id, run_dir_name, send_to_cephci=False):
         text_file = open("result.html", "wt")
         text_file.write(html)
         text_file.close()
-        shutil.copy('result.html', run_dir_name)
+        shutil.copy('result.html', run_dir)
         
 #         result_env_var = 'run_status="{}"'.format(run_status)
         # for JJB's to parse
