@@ -598,10 +598,10 @@ def email_results(results_list, run_id, run_dir, suite_run_time, send_to_cephci=
         text_file.write(html)
         text_file.close()
         shutil.copy('result.html', run_dir)
-        # result properties file to inject into jenkins jobs , gitlab JJB to parse
+        # result properties file to inject vars in jenkins jobs , gitlab JJB to parse
         subprocess.call('echo run_status="{}" > result.props'.format(run_status), shell=True)
-        subprocess.call('echo compose="{}" >> result.props'.format(compose=results_list[0]['compose-id']), shell=True)
-        subprocess.call('echo suite="{}" >> result.props'.format(suite=results_list[0]['suite-name']), shell=True)
+        subprocess.call('echo compose="{}" >> result.props'.format(results_list[0]['compose-id']), shell=True)
+        subprocess.call('echo suite="{}" >> result.props'.format(results_list[0]['suite-name']), shell=True)
 
         try:
             s = smtplib.SMTP('localhost')
