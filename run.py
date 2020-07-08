@@ -581,6 +581,8 @@ def run(args):
         if test.get('recreate-cluster') is True:
             ceph_cluster_dict, clients = create_nodes(conf, inventory, osp_cred, run_id, service, instances_name)
         tcs.append(tc)
+    url_base = "http://magna002.ceph.redhat.com/cephci-jenkins"
+    run_dir_name = run_dir.split('/')[-1]
     log.info("\nAll test logs located here: {base}/{dir}".format(base=url_base, dir=run_dir_name))
     close_and_remove_filehandlers()
     if post_to_report_portal:
@@ -588,8 +590,6 @@ def run(args):
         service.terminate()
     if xunit_results:
         create_xunit_results(suite_name, tcs, run_dir)
-    url_base = "http://magna002.ceph.redhat.com/cephci-jenkins"
-    run_dir_name = run_dir.split('/')[-1]
     print("\nAll test logs located here: {base}/{dir}".format(base=url_base, dir=run_dir_name))
     print_results(tcs)
     send_to_cephci = post_results or post_to_report_portal
