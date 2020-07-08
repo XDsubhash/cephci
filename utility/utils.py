@@ -592,11 +592,10 @@ def email_results(results_list, run_id, run_dir, send_to_cephci=False):
 
         # part1 = MIMEText(html, 'html')
         # msg.attach(part1)
-        emailmsg = html
         part1 = MIMEText(html, 'html')
         msg.attach(part1)
         text_file = open("result.html", "wt")
-        text_file.write(html)
+        text_file.write(msg.as_string())
         text_file.close()
         shutil.copy('result.html', run_dir)
         
