@@ -535,14 +535,15 @@ def custom_ceph_config(suite_config, custom_config, custom_config_file):
     return full_custom_config
 
 
-def email_results(results_list, run_id, run_dir, send_to_cephci=False):
+def email_results(results_list, run_id, run_dir, suite_run_time, send_to_cephci=False):
     """
     Email results of test run to QE
 
     Args:
         results_list (list): test case results info
         run_id (str): id of the test run
-        run_dir: log directory path
+        run_dir (str): log directory path
+        suite_run_time (str): suite total duration info
         send_to_cephci (bool): send to cephci@redhat.com as well as user email
 
     Returns: None
@@ -560,9 +561,9 @@ def email_results(results_list, run_id, run_dir, send_to_cephci=False):
                     "Or please specify in this format eg., address: email1, email2.......emailn"
                     "Please configure if you would like to receive run result emails.")
 
-#     if send_to_cephci:
-#         recipients.append(sender)
-#         recipients = list(set(recipients))
+    if send_to_cephci:
+        recipients.append(sender)
+        recipients = list(set(recipients))
 
     if recipients:
         run_name = "cephci-run-{id}".format(id=run_id)
@@ -588,28 +589,19 @@ def email_results(results_list, run_id, run_dir, send_to_cephci=False):
 
         html = template.render(run_name=run_name,
                                log_link=log_link,
-                               test_results=results_list)
+                               test_results=results_list,
+                               suite_run_time=suite_run_time)
 
-        # part1 = MIMEText(html, 'html')
-        # msg.attach(part1)
         part1 = MIMEText(html, 'html')
         msg.attach(part1)
         text_file = open("result.html", "wt")
-        text_file.write(msg.as_string())
+        text_file.write(html)
         text_file.close()
         shutil.copy('result.html', run_dir)
-        
-#         result_env_var = 'run_status="{}"'.format(run_status)
-        # for JJB's to parse
-#         text_file = open("result.props", "wt")
-#         text_file.write(emailmsg)
-#         text_file.close()
-#         subprocess.call("export run_status={}".format(run_status), shell=True)
-#         subprocess.call("export result_status=`cat result.html`", shell=True)
+        # result properties file to inject into jenkins jobs , gitlab JJB to parse
         subprocess.call('echo run_status="{}" > result.props'.format(run_status), shell=True)
-#         subprocess.call("echo result_status='''{}''' > /etc/environment".format(emailmsg), shell=True)
-#         subprocess.call("echo result_status='''{}''' > result.props".format(emailmsg), shell=True)
-        
+        subprocess.call('echo compose="{}" >> result.props'.format(compose=results_list[0]['compose-id']), shell=True)
+        subprocess.call('echo suite="{}" >> result.props'.format(suite=results_list[0]['suite-name']), shell=True)
 
         try:
             s = smtplib.SMTP('localhost')
